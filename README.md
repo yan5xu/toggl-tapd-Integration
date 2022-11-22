@@ -1,2 +1,2 @@
-# toggl-tapd-Integration
+# toggl-tapd-integration
 toggl tapd intergration script
