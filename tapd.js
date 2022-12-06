@@ -66,11 +66,29 @@ togglbutton.render(
 
     //获取当前任务描述
     const descriptionSelector = () => {
-      const text = root_elem
+      const inner_class = root_elem
         .querySelector(".growing-title")
-        .querySelector(".growing-title-inner")
-        .querySelector(".editable-value");
-      return text ? text.textContent.trim() : "";
+        .querySelector(".growing-title-inner");
+      const icon_span_className =
+        inner_class.querySelector(".workitem-icon").className;
+      const text = inner_class.querySelector(".editable-value");
+
+      const words = text.href.split("/");
+      const workspace_id = words[3];
+      const entity_id = words[7];
+      let entity_type = "";
+      if (icon_span_className.indexOf("task") !== -1) {
+        entity_type = "task";
+      } else if (icon_span_className.indexOf("bug") !== -1) {
+        entity_type = "bug";
+      } else if (icon_span_className.indexOf("story") !== -1) {
+        entity_type = "story";
+      }
+      console.log(entity_type, workspace_id, entity_id);
+      const des = `${
+        text ? text.textContent.trim() : ""
+      } $tapd:${workspace_id}-${entity_type}-${entity_id}`;
+      return des;
     };
 
     // 创建计时器元素
